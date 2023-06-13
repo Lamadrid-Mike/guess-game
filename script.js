@@ -3,10 +3,10 @@ let countryName = document.querySelector(".country-names");
 
 let fourCountriesIndex = [];
 let randomCountries = [];
-let singleCountry;
+let correctAnswer;
 
 const numberGenerator = () => {
-  return Math.floor(Math.random() * 250);
+  return Math.floor(Math.random() * 251);
 };
 
 const pushFourCountries = (countriesIndex, array, data) => {
@@ -27,7 +27,7 @@ const destructuring = (obj) => {
     name: { common },
   } = obj[0];
   displayImage.setAttribute("src", png);
-  singleCountry = common;
+  correctAnswer = common;
 };
 
 const displayOptions = (array, targetHtml) => {
