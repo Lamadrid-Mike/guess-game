@@ -3,10 +3,10 @@ let countryName = document.querySelector(".country-names");
 
 let fourCountriesIndex = [];
 let randomCountries = [];
-let singleCountry;
+let correctAnswer;
 
 const numberGenerator = () => {
-  return Math.floor(Math.random() * 250);
+  return Math.floor(Math.random() * 251);
 };
 
 const pushFourCountries = (countriesIndex, array, data) => {
@@ -15,26 +15,45 @@ const pushFourCountries = (countriesIndex, array, data) => {
 
 const pickFourCountries = () => {
   for (let i = 0; i < 4; i++) {
-    if (!fourCountriesIndex.includes(numberGenerator())) {
+    if (fourCountriesIndex.includes(numberGenerator())) {
+      console.log("error");
+    } else {
       fourCountriesIndex.push(numberGenerator());
     }
   }
 };
 
-const destructuring = (obj) => {
+const answer = (obj) => {
   const {
     flags: { png },
     name: { common },
   } = obj[0];
   displayImage.setAttribute("src", png);
-  singleCountry = common;
+  correctAnswer = common;
+  console.log(correctAnswer);
 };
 
 const displayOptions = (array, targetHtml) => {
+  console.log(randomCountries);
   array.map((el) => {
-    const html = `<button>${el.name.common}</button>`;
+    let country = el.name.common;
+    const html = `<button value="${country} "class="option-btn">${country}</button>`;
     targetHtml.insertAdjacentHTML("beforeend", html);
   });
+};
+
+let shuffleArray = (array) => {
+  let currentIndex = array.length;
+  let randomIndex;
+  while (currentIndex != 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+  return array;
 };
 
 async function getData() {
@@ -44,8 +63,11 @@ async function getData() {
   let data = await countries.json();
   pickFourCountries();
   pushFourCountries(fourCountriesIndex, randomCountries, data);
-  destructuring(randomCountries);
-  displayOptions(randomCountries, countryName);
-  console.log(randomCountries);
+  answer(randomCountries);
+  displayOptions(shuffleArray(randomCountries), countryName);
 }
 getData();
+
+countryName.addEventListener("click", function (e) {
+  let value = e.target.value;
+});
