@@ -30,7 +30,6 @@ const answer = (obj) => {
   } = obj[0];
   displayImage.setAttribute("src", png);
   correctAnswer = common;
-  console.log(correctAnswer);
 };
 
 const displayOptions = (array, targetHtml) => {
@@ -70,4 +69,5 @@ getData();
 
 countryName.addEventListener("click", function (e) {
   let value = e.target.value;
+  console.log(value);
 });
