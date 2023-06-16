@@ -3,13 +3,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Guess Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <main>
       <div class="main-container">
-        <h1>Guess The Flag</h1>
+        <div class="header-container">
+          <h3>Welcome, user</h3>
+          <h3 class="show-points"></h3>
+        </div>
+        <h2>Guess The Flag</h2>
         <img class="country-flag" />
         <div class="country-names"></div>
       </div>

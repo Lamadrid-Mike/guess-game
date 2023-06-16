@@ -1,9 +1,11 @@
 let displayImage = document.querySelector(".country-flag");
 let countryName = document.querySelector(".country-names");
+let showPoints = document.querySelector(".show-points");
 
 let fourCountriesIndex = [];
 let randomCountries = [];
 let correctAnswer;
+let startPoints = 3;
 
 const numberGenerator = () => {
   return Math.floor(Math.random() * 251);
@@ -30,13 +32,13 @@ const answer = (obj) => {
   } = obj[0];
   displayImage.setAttribute("src", png);
   correctAnswer = common;
+  console.log(correctAnswer);
 };
 
 const displayOptions = (array, targetHtml) => {
-  console.log(randomCountries);
   array.map((el) => {
     let country = el.name.common;
-    const html = `<button value="${country} "class="option-btn">${country}</button>`;
+    const html = `<button value="${country}" class="option-btn">${country}</button>`;
     targetHtml.insertAdjacentHTML("beforeend", html);
   });
 };
@@ -55,6 +57,15 @@ let shuffleArray = (array) => {
   return array;
 };
 
+const displayPoints = (number) => {
+  showPoints.innerHTML = `points:${number}`;
+};
+
+const refresh = () => {
+  randomCountries = [];
+  pickFourCountries();
+};
+
 async function getData() {
   let countries = await fetch(
     "https://restcountries.com/v3.1/all?fields=name,flags"
@@ -64,10 +75,14 @@ async function getData() {
   pushFourCountries(fourCountriesIndex, randomCountries, data);
   answer(randomCountries);
   displayOptions(shuffleArray(randomCountries), countryName);
+  displayPoints(startPoints);
 }
 getData();
 
 countryName.addEventListener("click", function (e) {
-  let value = e.target.value;
-  console.log(value);
+  if (e.target.classList.contains("option-btn")) {
+    let value = e.target.value;
+    startPoints--;
+    displayPoints(startPoints);
+  }
 });
