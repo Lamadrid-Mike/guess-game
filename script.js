@@ -1,13 +1,19 @@
 let displayImage = document.querySelector(".country-flag");
 let countryName = document.querySelector(".country-names");
 let showPoints = document.querySelector(".show-points");
-let mainContainer = document.querySelector(".flag-options");
+let optionsBtn = document.querySelector(".country-names");
+let startBtn = document.querySelector(".start-btn");
+let userInfo = document.getElementById("user-name");
+let userDiv = document.querySelector(".user-info");
+let displayUsername = document.querySelector(".display-username");
 
 let fourCountriesIndex = [];
 let randomCountries = [];
-let correctAnswer;
 let points = 3;
+let isLogged = false;
 let data;
+let correctAnswer;
+let userName;
 
 const numberGenerator = () => {
   return Math.floor(Math.random() * 251);
@@ -46,7 +52,7 @@ const displayOptions = (array, targetHtml) => {
 };
 
 const displayGameOver = (targetHtml) => {
-  let html = `<h1>GAME OVER</h1>`;
+  let html = `<h1 class="country-names">GAME OVER</h1>`;
   targetHtml.insertAdjacentHTML("beforeend", html);
 };
 
@@ -78,22 +84,24 @@ const fadeEffect = (htmlTarget) => {
 const restart = () => {
   randomCountries = [];
   fourCountriesIndex = [];
-  setTimeout(() => {
-    pickFourCountries();
-    pushFourCountries(fourCountriesIndex, randomCountries, data);
-    answer(randomCountries);
-    fadeEffect(displayImage);
-    fadeEffect(countryName);
-    while (countryName.hasChildNodes()) {
-      countryName.removeChild(countryName.firstChild);
-    }
-    displayOptions(shuffleArray(randomCountries), countryName);
-  }, 1000);
+  if (points > 0) {
+    setTimeout(() => {
+      pickFourCountries();
+      pushFourCountries(fourCountriesIndex, randomCountries, data);
+      answer(randomCountries);
+      fadeEffect(displayImage);
+      fadeEffect(countryName);
+      while (countryName.hasChildNodes()) {
+        countryName.removeChild(countryName.firstChild);
+      }
+      displayOptions(shuffleArray(randomCountries), countryName);
+    }, 1000);
+  }
   if (points === 0) {
-    while (mainContainer.hasChildNodes()) {
-      mainContainer.removeChild(mainContainer.firstChild);
+    while (optionsBtn.hasChildNodes()) {
+      optionsBtn.removeChild(optionsBtn.firstChild);
     }
-    displayGameOver(mainContainer);
+    displayGameOver(optionsBtn);
   }
 };
 
@@ -123,4 +131,13 @@ countryName.addEventListener("click", function (e) {
     displayPoints(points);
     restart();
   }
+});
+
+startBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  userName = userInfo.value;
+  userDiv.style.display = "none";
+  displayImage.classList.remove("to-hide");
+  optionsBtn.classList.remove("to-hide");
+  displayUsername.innerHTML = userName;
 });
