@@ -9,19 +9,26 @@
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-    <script src="script.js" defer></script>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="user.css" />
+    <script src="/scripts/script.js" defer></script>
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/user.css" />
   </head>
   <body>
     <main>
       <div class="main-container">
-        <h4 class="greeting">Hello, <span class="display-username"></span></h4>
+        <h4 class="greeting to-hide">
+          Hello, <span class="display-username"></span>
+        </h4>
         <h3 class="game-title">Guess The Flag</h3>
-        <h4 class="show-points"></h4>
+        <h4 class="show-points to-hide"></h4>
         <form class="user-info">
           <label for="user-name">Username</label>
-          <input type="text" id="user-name" name="user-name" />
+          <input
+            type="text"
+            class="user-name"
+            id="user-name"
+            name="user-name"
+          />
           <button class="start-btn option-btn">start</button>
         </form>
         <img class="country-flag to-hide" />

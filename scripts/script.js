@@ -1,6 +1,7 @@
 let displayImage = document.querySelector(".country-flag");
 let countryName = document.querySelector(".country-names");
 let showPoints = document.querySelector(".show-points");
+let greeting = document.querySelector(".greeting");
 let optionsBtn = document.querySelector(".country-names");
 let startBtn = document.querySelector(".start-btn");
 let userInfo = document.getElementById("user-name");
@@ -24,13 +25,12 @@ const pushFourCountries = (countriesIndex, array, data) => {
 };
 
 const pickFourCountries = () => {
-  for (let i = 0; i < 4; i++) {
-    if (fourCountriesIndex.includes(numberGenerator())) {
-      console.log("error");
-    } else {
+  while (fourCountriesIndex.length < 4) {
+    if (!fourCountriesIndex.includes(numberGenerator())) {
       fourCountriesIndex.push(numberGenerator());
     }
   }
+  console.log(fourCountriesIndex);
 };
 
 const answer = (obj) => {
@@ -135,9 +135,15 @@ countryName.addEventListener("click", function (e) {
 
 startBtn.addEventListener("click", function (e) {
   e.preventDefault();
-  userName = userInfo.value;
-  userDiv.style.display = "none";
-  displayImage.classList.remove("to-hide");
-  optionsBtn.classList.remove("to-hide");
-  displayUsername.innerHTML = userName;
+  if (userInfo.value) {
+    userName = userInfo.value;
+    userDiv.style.display = "none";
+    displayImage.classList.remove("to-hide");
+    optionsBtn.classList.remove("to-hide");
+    showPoints.classList.remove("to-hide");
+    greeting.classList.remove("to-hide");
+    displayUsername.innerHTML = userName;
+  } else {
+    alert("input username");
+  }
 });
