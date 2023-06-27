@@ -30,7 +30,6 @@ const pickFourCountries = () => {
       fourCountriesIndex.push(numberGenerator());
     }
   }
-  console.log(fourCountriesIndex);
 };
 
 const answer = (obj) => {
@@ -40,7 +39,6 @@ const answer = (obj) => {
   } = obj[0];
   displayImage.setAttribute("src", png);
   correctAnswer = common;
-  console.log(correctAnswer);
 };
 
 const displayOptions = (array, targetHtml) => {
