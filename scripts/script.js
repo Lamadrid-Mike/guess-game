@@ -11,7 +11,7 @@ let displayUsername = document.querySelector(".display-username");
 let fourCountriesIndex = [];
 let randomCountries = [];
 let points = 3;
-let isLogged = false;
+let optionSelected = false;
 let data;
 let correctAnswer;
 let userName;
@@ -84,6 +84,7 @@ const restart = () => {
   fourCountriesIndex = [];
   if (points > 0) {
     setTimeout(() => {
+      optionSelected = false;
       pickFourCountries();
       pushFourCountries(fourCountriesIndex, randomCountries, data);
       answer(randomCountries);
@@ -117,7 +118,8 @@ async function getData() {
 getData();
 
 countryName.addEventListener("click", function (e) {
-  if (e.target.classList.contains("option-btn")) {
+  if (e.target.classList.contains("option-btn") && !optionSelected) {
+    optionSelected = true;
     let value = e.target.value;
     if (value === correctAnswer) {
       points++;
@@ -131,10 +133,14 @@ countryName.addEventListener("click", function (e) {
   }
 });
 
+const toUpperCaseName = (name) => {
+  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+};
+
 startBtn.addEventListener("click", function (e) {
   e.preventDefault();
   if (userInfo.value) {
-    userName = userInfo.value;
+    userName = toUpperCaseName(userInfo.value);
     userDiv.style.display = "none";
     displayImage.classList.remove("to-hide");
     optionsBtn.classList.remove("to-hide");
